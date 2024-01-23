@@ -22,12 +22,14 @@ models need to opt-out of v2 by explicitly opting in to use v1.
 
 * Define the model in <existing_model>_v2.sql
 * Update schema.yaml to point to have "v: 1" alias'd to the existing name of the table/view.
-* For "v1", explicitly specify the name of the SQL file where the model is defined in. Otherwise, DBT would look for one with a suffi _v1.
-* For "v1", explicitly pin the name of the table to the existing one, else DBT would create a new one with the suffix "_v1"
+* For "v1", explicitly specify the name of the SQL file where the model is defined in. Otherwise, DBT would look for one with a suffix "_v1".
+* For "v1", explicitly alias the name of the table to the existing one, else DBT would create a new one with the suffix "_v1"
 
 #### Phase 2
 
-* 
+* Remove the alias from "v1" model.
+* Mark `models.name.latest_version` to `2`. At this point, any references to `from {{ ref('my_first_dbt_model') }}` would now point to newer version of the model. 
+* Any referencing model needs to adapt to the changes introduced in the newer version of the referenced model. 
 
 
 

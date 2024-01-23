@@ -5,7 +5,7 @@ version: 2
 models:
   - name: my_first_dbt_model
     description: "A starter dbt model"
-    latest_version: 1 # NOT the latest, this is the unpinned version.
+    latest_version: 2 # NOT the latest, this is the unpinned version.
     columns:
       - name: identity
         description: "The primary key for this table"
@@ -19,14 +19,14 @@ models:
           - not_null    
     versions:
       - v: 1
-        config:
-          alias: my_first_dbt_model
         defined_in: my_first_dbt_model
         columns:
           - include: all
             exclude: [identity]
       - v: 2
         defined_in: my_first_dbt_model_v2 # already implicit.
+        config:
+          alias: my_first_dbt_model
         columns:
           - include: all
             exclude: [id]

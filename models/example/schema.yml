@@ -1,0 +1,41 @@
+
+version: 2
+
+
+models:
+  - name: my_first_dbt_model
+    description: "A starter dbt model"
+    latest_version: 1 # NOT the latest, this is the unpinned version.
+    columns:
+      - name: identity
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null
+      - name: id
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null    
+    versions:
+      - v: 1
+        config:
+          alias: my_first_dbt_model
+        defined_in: my_first_dbt_model
+        columns:
+          - include: all
+            exclude: [identity]
+      - v: 2
+        defined_in: my_first_dbt_model_v2 # already implicit.
+        columns:
+          - include: all
+            exclude: [id]
+
+  - name: my_second_dbt_model
+    description: "A starter dbt model"
+    columns:
+      - name: id
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null
